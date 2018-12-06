@@ -7,20 +7,14 @@ import com.github.noconnor.junitperf.reporting.providers.ConsoleReportGenerator;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
-public class BatchedExecutorServiceTest {
+public class BlockBatchedExecutorTest {
     final static int NUM_THREADS = 10;
 
     @Rule
@@ -38,7 +32,7 @@ public class BatchedExecutorServiceTest {
     @Test
     public void submitTasks_runsOneTask() {
         int NUM_TASKS = 1;
-        BatchedExecutorService<String> executor = new BatchedExecutorService<>(executorService, NUM_THREADS);
+        BlockBatchedExecutor<String> executor = new BlockBatchedExecutor<>(executorService, NUM_THREADS);
         executor.runTasks(TaskUtil.getTasks(NUM_TASKS));
     }
 
@@ -48,7 +42,7 @@ public class BatchedExecutorServiceTest {
     @Test
     public void submitTasks_100000tasks_runs() {
         int NUM_TASKS = 1000;
-        BatchedExecutorService<String> executor = new BatchedExecutorService<>(executorService, 10);
+        BlockBatchedExecutor<String> executor = new BlockBatchedExecutor<>(executorService, 10);
         executor.runTasks(TaskUtil.getTasks(NUM_TASKS));
     }
 
@@ -57,7 +51,7 @@ public class BatchedExecutorServiceTest {
     @Test
     public void submitTasks_1000tasksWithRandom_runs() {
         int NUM_TASKS = 1000;
-        BatchedExecutorService<String> executor = new BatchedExecutorService<>(executorService, 10);
+        BlockBatchedExecutor<String> executor = new BlockBatchedExecutor<>(executorService, 10);
         executor.runTasks(TaskUtil.getTasks(NUM_TASKS, 100));
     }
 
@@ -66,7 +60,7 @@ public class BatchedExecutorServiceTest {
     @Test
     public void submitTasks_100000tasksWithRandom_runs() {
         int NUM_TASKS = 1000;
-        BatchedExecutorService<String> executor = new BatchedExecutorService<>(executorService, NUM_THREADS);
+        BlockBatchedExecutor<String> executor = new BlockBatchedExecutor<>(executorService, NUM_THREADS);
         executor.runTasks(TaskUtil.getTasks(NUM_TASKS, 10));
     }
 }

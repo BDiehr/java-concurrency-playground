@@ -1,18 +1,15 @@
 package com.example;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.*;
-import java.util.concurrent.locks.ReentrantLock;
-import java.util.stream.IntStream;
 
-public class BatchedExecutorService<T> {
+public class BlockBatchedExecutor<T> {
     private final ExecutorService executorService;
     private final int numThreads;
 
-    public BatchedExecutorService(
+    public BlockBatchedExecutor(
             final ExecutorService executorService,
             final int numThreads
     ) {
